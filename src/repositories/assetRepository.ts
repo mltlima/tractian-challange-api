@@ -8,6 +8,7 @@ export interface Asset {
     owner: string;
     status: AssetStatus;
     health: number;
+    unit: string;
 }
 
 enum AssetStatus {
@@ -16,30 +17,32 @@ enum AssetStatus {
     "Stopped"
 }
 
-export default class AssetRepository {
-    private collection = db.collection('assets');
+export async function createAsset(asset: Asset) {
+    const collection = db.collection("assets");
+    await collection.insertOne(asset);
+}
 
-    public async create(asset: Asset): Promise<Asset> {
-        const result = await this.collection.insertOne(asset);
-        return result.ops[0];
-    }
+export async function getAssetById(id: string): Promise<Asset> {
+    const collection = db.collection("assets");
+    return await collection.findOne({ _id: id });
+}
 
-    public async findByName(name: string): Promise<Asset> {
-        return await this.collection.findOne({ name });
-    }
+export async function getAssetByName(name: string): Promise<Asset> {
+    const collection = db.collection("assets");
+    return await collection.findOne({ name });
+}
 
-    public async findById(id: string): Promise<Asset> {
-        return await this.collection.findOne({ _id: id });
-    }
+export async function getAssetByIdAndOwner(id: string, owner: string): Promise<Asset> {
+    const collection = db.collection("assets");
+    return await collection.findOne({ _id: id, owner });
+}
 
-    public async updateAsset(id: string, asset: Asset): Promise<Asset> {
-        await this.collection.updateOne({ _id: id }, { $set: asset });
-        return await this.findById(id);
-    }
+export async function updateAsset(id: string, asset: Asset): Promise<void> {
+    const collection = db.collection("assets");
+    await collection.updateOne({ _id: id }, { $set: asset });
+}
 
-    public async deleteAsset(id: string): Promise<Asset> {
-        const asset = await this.findById(id);
-        await this.collection.deleteOne({ _id: id });
-        return asset;
-    }
+export async function deleteAsset(id: string): Promise<void> {
+    const collection = db.collection("assets");
+    await collection.deleteOne({ _id: id });
 }
