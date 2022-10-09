@@ -1,4 +1,4 @@
-import db from '../db';
+import db from '../db.js';
 
 export interface Asset {
     name: string;
@@ -30,11 +30,6 @@ export async function getAssetById(id: string): Promise<Asset> {
 export async function getAssetByName(name: string): Promise<Asset> {
     const collection = db.collection("assets");
     return await collection.findOne({ name });
-}
-
-export async function getAssetByIdAndOwner(id: string, owner: string): Promise<Asset> {
-    const collection = db.collection("assets");
-    return await collection.findOne({ _id: id, owner });
 }
 
 export async function updateAsset(id: string, asset: Asset): Promise<void> {
