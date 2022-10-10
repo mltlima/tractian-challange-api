@@ -23,10 +23,16 @@ const assetSchema = Joi.object({
     unit: Joi.string().required(),
 });
 
+const unitSchema = Joi.object({
+    name: Joi.string().required(),
+    company: Joi.string().required(),
+});
+
 const schemas = {
     loginSchema,
     registerSchema,
     assetSchema,
+    unitSchema,
 };
 
 export default schemas;
