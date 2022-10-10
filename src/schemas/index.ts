@@ -28,11 +28,16 @@ const unitSchema = Joi.object({
     company: Joi.string().required(),
 });
 
+const companySchema = Joi.object({
+    name: Joi.string().required(),
+});
+
 const schemas = {
     loginSchema,
     registerSchema,
     assetSchema,
     unitSchema,
+    companySchema,
 };
 
 export default schemas;
