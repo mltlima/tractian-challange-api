@@ -11,13 +11,13 @@ export async function login(email: string, password: string): Promise<boolean> {
     return await bcrypt.compare(password, user.password);
 }
 
-export async function register(username: string, email: string, password: string): Promise<boolean> {
+export async function register(username: string, email: string, password: string, company: string): Promise<boolean> {
     const existingUser = await UserRepository.getUserByEmail(email);
     if (existingUser) {
         throw conflictError('User already exists');
     }
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = { username, email, password: hashedPassword };
+    const user = { username, email, password: hashedPassword, company };
     await UserRepository.createUser(user);
     return true;
 }

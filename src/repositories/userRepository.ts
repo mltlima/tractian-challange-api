@@ -4,6 +4,7 @@ export interface User {
     username: string;
     email: string;
     password: string;
+    company: string;
 }
 
 export async function getUserById(id: string): Promise<User> {

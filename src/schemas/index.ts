@@ -10,6 +10,7 @@ const registerSchema = Joi.object({
     email: Joi.string().email().required(),
     password: Joi.string().required(),
     confirmPassword: Joi.string().valid(Joi.ref('password')).required(),
+    company: Joi.string().required(),
 });
 
 const assetSchema = Joi.object({

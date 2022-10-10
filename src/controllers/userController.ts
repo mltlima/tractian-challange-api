@@ -14,8 +14,8 @@ export async function login(req: Request, res: Response) {
 }
 
 export async function register(req: Request, res: Response) {
-    const { username, email, password } = req.body;
-    const isUserValid = await UserService.register(username, email, password);
+    const { username, email, password, company } = req.body;
+    const isUserValid = await UserService.register(username, email, password, company);
     if (!isUserValid) {
         return res.status(400).send('Invalid user data');
     }
