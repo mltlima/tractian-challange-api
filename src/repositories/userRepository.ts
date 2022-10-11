@@ -7,6 +7,11 @@ export interface User {
     company: string;
 }
 
+export async function getAllUsers() {
+    const users = await db.collection("users").find({}).toArray();
+    return users;
+}
+
 export async function getUserById(id: string): Promise<User> {
     return await db.collection('users').findOne({ _id: id });
 }

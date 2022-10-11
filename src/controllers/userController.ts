@@ -28,3 +28,8 @@ export async function getUserByEmail(req: Request, res: Response) {
     }
     res.status(200).send(user);
 }
+
+export async function getAllUsers(req: Request, res: Response) {
+    const users = await UserService.getAllUsers();
+    res.status(200).send(users);
+}

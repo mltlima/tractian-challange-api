@@ -33,3 +33,12 @@ export async function register(username: string, email: string, password: string
 export async function getUserByEmail(email: string) {
     return await UserRepository.getUserByEmail(email);
 }
+
+export async function getAllUsers() {
+    const users = await UserRepository.getAllUsers();
+    users.map(user => {
+        delete user.password;
+    });
+    
+    return users;
+}
