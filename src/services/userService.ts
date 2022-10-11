@@ -3,12 +3,20 @@ import bcrypt from 'bcrypt';
 import { notFoundError, conflictError } from '../utils/errorUtils.js';
 import * as UserRepository from '../repositories/userRepository.js';
 
-export async function login(email: string, password: string): Promise<boolean> {
+export async function login(email: string, password: string): Promise<string> {
     const user = await UserRepository.getUserByEmail(email);
     if (!user) {
         throw notFoundError('User not found');
     }
-    return await bcrypt.compare(password, user.password);
+
+    if (!bcrypt.compare(password, user.password)) {
+        throw notFoundError('Invalid password');
+    }
+
+    const username = (await UserRepository.getUserByEmail(email)).username;
+    
+    return username;
+
 }
 
 export async function register(username: string, email: string, password: string, company: string): Promise<boolean> {

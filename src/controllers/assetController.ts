@@ -1,6 +1,11 @@
 import { Request, Response } from 'express';
 import * as AssetService from '../services/assetService.js';
 
+export async function getAllAssets(req: Request, res: Response) {
+    const assets = await AssetService.getAllAssets();
+    res.status(200).send(assets);
+}
+
 export async function getAssetById(req: Request, res: Response) {
     const { id } = req.params;
     const asset = await AssetService.getAssetById(id);
@@ -14,8 +19,10 @@ export async function getAssetByName(req: Request, res: Response) {
 }
 
 export async function createAsset(req: Request, res: Response) {
-    const { name, description, image, model, owner, status, health, unit } = req.body;
-    await AssetService.createAsset({ name, description, image, model, owner, status, health, unit });
+    const { name, description, image, model, status, health, unit } = req.body;
+    const { user } = JSON.parse(JSON.stringify(res.locals));
+    
+    await AssetService.createAsset({ name, description, image, model, owner : user.username, status, health, unit });
     res.status(201).send();
 }
 

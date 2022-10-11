@@ -1,6 +1,10 @@
 import { notFoundError, conflictError } from '../utils/errorUtils.js';
 import * as AssetRepository from '../repositories/assetRepository.js';
 
+export async function getAllAssets() {
+    return await AssetRepository.getAllAssets();
+}
+
 export async function getAssetById(id: string) {
     const asset = await AssetRepository.getAssetById(id);
     if (!asset) {

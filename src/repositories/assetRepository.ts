@@ -17,6 +17,11 @@ enum AssetStatus {
     "Stopped"
 }
 
+export async function getAllAssets() {
+    const assets = await db.collection("assets").find({}).toArray();
+    return assets;
+}
+
 export async function createAsset(asset: Asset) {
     const collection = db.collection("assets");
     await collection.insertOne(asset);

@@ -18,9 +18,8 @@ const assetSchema = Joi.object({
     description: Joi.string().allow(null, ''),
     image: Joi.string().regex(/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/).required(),
     model: Joi.string().required(),
-    owner: Joi.string().required(),
     status: Joi.string().valid("Running", "Alerting", "Stopped").required(),
-    health: Joi.string().required(),
+    health: Joi.number().integer().min(0).max(100).required(),
     unit: Joi.string().required(),
 });
 
