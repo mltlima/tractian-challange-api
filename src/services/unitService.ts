@@ -1,5 +1,19 @@
 import { notFoundError, conflictError } from '../utils/errorUtils.js';
 import * as UnitRepository from '../repositories/unitRepository.js';
+import * as CompanyRepository from '../repositories/companyRepository.js';
+
+
+export async function getUnits() {
+    return UnitRepository.getAllUnits();
+}
+
+export async function getUnitsByCompany(company: string) {
+    const isCompanyValid = await CompanyRepository.getCompanyByName(company);
+    if (!isCompanyValid) {
+        throw notFoundError('Company not found');
+    }
+    return UnitRepository.getUnitsByCompany(company);
+}
 
 export async function getUnitById(id: string) {
     const unit = await UnitRepository.getUnitById(id);

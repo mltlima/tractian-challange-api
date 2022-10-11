@@ -5,6 +5,16 @@ export interface Unit {
     company: string;
 }
 
+export async function getAllUnits() {
+    const units = await db.collection("units").find({}).toArray();
+    return units;
+}
+
+export async function getUnitsByCompany(company: string) {
+    const units = await db.collection("units").find({ company }).toArray();
+    return units;
+}
+
 export async function createUnit(unit: Unit) {
     const collection = db.collection("units");
     await collection.insertOne(unit);

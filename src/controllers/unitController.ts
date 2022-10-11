@@ -2,6 +2,18 @@ import { Request, Response } from 'express';
 
 import * as UnitService from '../services/unitService.js';
 
+
+export async function getUnits(req: Request, res: Response) {
+    const units = await UnitService.getUnits();
+    res.status(200).send(units);
+}
+
+export async function getUnitsByCompany(req: Request, res: Response) {
+    const { company } = req.params;
+    const units = await UnitService.getUnitsByCompany(company);
+    res.status(200).send(units);
+}
+
 export async function getUnitById(req: Request, res: Response) {
     const { id } = req.params;
     const unit = await UnitService.getUnitById(id);
