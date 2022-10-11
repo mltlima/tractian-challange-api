@@ -1,5 +1,10 @@
 import db from '../db.js';
 
+export async function getAllCompanies() {
+    const companies = await db.collection("companies").find({}).toArray();
+    return companies;
+}
+
 export async function createCompany(name: string) {
     const collection = db.collection("companies");
     await collection.insertOne({ name });

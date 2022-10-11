@@ -7,11 +7,11 @@ import { validateToken } from '../middlewares/authMiddleware.js';
 
 const companyRouter = Router();
 
-companyRouter.use(validateToken);
+companyRouter.get('/companies', CompanyController.getCompanies);
 companyRouter.get('/company/:id', CompanyController.getCompanyById);
 companyRouter.get('/company/name/:name', CompanyController.getCompanyByName);
-companyRouter.post('/company', validateSchema(schemas.companySchema), CompanyController.createCompany);
-companyRouter.put('/company/:id', validateSchema(schemas.companySchema), CompanyController.updateCompany);
-companyRouter.delete('/company/:id', CompanyController.deleteCompany);
+companyRouter.post('/company', validateSchema(schemas.companySchema), validateToken, CompanyController.createCompany);
+companyRouter.put('/company/:id', validateSchema(schemas.companySchema), validateToken, CompanyController.updateCompany);
+companyRouter.delete('/company/:id', validateToken, CompanyController.deleteCompany);
 
 export default companyRouter;

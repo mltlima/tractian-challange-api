@@ -2,6 +2,11 @@ import { Request, Response } from 'express';
 
 import * as CompanyService from '../services/companyService.js';
 
+export async function getCompanies(req: Request, res: Response) {
+    const companies = await CompanyService.getCompanies();
+    res.status(200).send(companies);
+}
+
 export async function getCompanyById(req: Request, res: Response) {
     const { id } = req.params;
     const company = await CompanyService.getCompanyById(id);

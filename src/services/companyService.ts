@@ -2,6 +2,10 @@ import { notFoundError, conflictError } from '../utils/errorUtils.js';
 
 import * as CompanyRepository from '../repositories/companyRepository.js';
 
+export async function getCompanies() {
+    return CompanyRepository.getAllCompanies();
+}
+
 export async function getCompanyById(id: string) {
     const company = await CompanyRepository.getCompanyById(id);
     if (!company) {
